@@ -1,0 +1,424 @@
+<?xml version="1.0"?>
+<robot name="rc_field">
+
+  <!-- ============================================================
+       ABU Robocon 2027 竞赛场地  —  "追寻努桑塔拉秘宝"
+       依据：官方规则手册 v1.0（图1、图2尺寸标注与官方 RGB 色表）
+       单位：米。原点=场地正中心、地面高度(z=0)。X- 红方 / X+ 蓝方 / Z+ 向上。
+       【对称性】全场 180° 中心旋转对称
+       ============================================================ -->
+
+  <!-- ==================== 官方调色板（RGB已除以255） ==================== -->
+  <material name="红方地面">    <color rgba="0.941 0.824 0.824 1.0"/></material> <!-- 240,210,210 -->
+  <material name="蓝方地面">    <color rgba="0.667 0.824 0.902 1.0"/></material> <!-- 170,210,230 -->
+  <material name="共享区米黄">  <color rgba="0.961 0.941 0.784 1.0"/></material> <!-- 245,240,200 -->
+  <material name="启动重试红">  <color rgba="0.875 0.133 0.133 1.0"/></material> <!-- 223,34,34 -->
+  <material name="启动重试蓝">  <color rgba="0.196 0.000 1.000 1.0"/></material> <!-- 50,0,255 -->
+  <material name="柱身棕">      <color rgba="0.392 0.243 0.000 1.0"/></material> <!-- 100,62,0 -->
+  <material name="红方台面橙粉"><color rgba="0.922 0.706 0.627 1.0"/></material> <!-- 235,180,160 -->
+  <material name="蓝方台面青蓝"><color rgba="0.588 0.843 0.863 1.0"/></material> <!-- 150,215,220 -->
+  <material name="红方斜坡">    <color rgba="0.784 0.588 0.549 1.0"/></material> <!-- 200,150,140 -->
+  <material name="蓝方斜坡">    <color rgba="0.510 0.706 0.784 1.0"/></material> <!-- 130,180,200 -->
+  <material name="建塔位绿">    <color rgba="0.157 0.392 0.196 1.0"/></material> <!-- 40,100,50 -->
+  <material name="红方交接橙">  <color rgba="0.961 0.667 0.235 1.0"/></material> <!-- 245,170,60 -->
+  <material name="蓝方交接蓝">  <color rgba="0.235 0.667 0.961 1.0"/></material> <!-- 60,170,245 -->
+  <material name="护栏灰">      <color rgba="0.745 0.745 0.725 1.0"/></material> <!-- 190,190,185 -->
+  <material name="秘宝金">      <color rgba="0.855 0.647 0.125 1.0"/></material> <!-- 218,165,32 -->
+
+  <!-- ==================== 基坐标 ==================== -->
+  <link name="base_link"><inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial></link>
+
+  <!-- ==================== 地面层（11×11m） ==================== -->
+  <link name="red_ground"><inertial><mass value="332.750000"/><inertia ixx="3355.231940" ixy="0" ixz="0" iyy="838.810065" iyz="0" izz="4194.036458"/></inertial><visual><geometry><box size="5.5 11.0 0.01"/></geometry><material name="红方地面"/></visual><collision><geometry><box size="5.5 11.0 0.01"/></geometry></collision></link>
+  <joint name="red_ground_joint" type="fixed"><parent link="base_link"/><child link="red_ground"/><origin xyz="-2.75 0 0.005"/></joint>
+  <link name="blue_ground"><inertial><mass value="332.750000"/><inertia ixx="3355.231940" ixy="0" ixz="0" iyy="838.810065" iyz="0" izz="4194.036458"/></inertial><visual><geometry><box size="5.5 11.0 0.01"/></geometry><material name="蓝方地面"/></visual><collision><geometry><box size="5.5 11.0 0.01"/></geometry></collision></link>
+  <joint name="blue_ground_joint" type="fixed"><parent link="base_link"/><child link="blue_ground"/><origin xyz="2.75 0 0.005"/></joint>
+
+  <!-- ==================== 场地边界木框 ==================== -->
+  <link name="frame_south"><inertial><mass value="49.280000"/><inertia ixx="0.067349" ixy="0" ixz="0" iyy="515.166549" iyz="0" izz="515.181333"/></inertial><visual><geometry><box size="11.2 0.1 0.08"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="11.2 0.1 0.08"/></geometry></collision></link>
+  <joint name="frame_south_joint" type="fixed"><parent link="base_link"/><child link="frame_south"/><origin xyz="0 -5.55 0.04"/></joint>
+  <link name="frame_north"><inertial><mass value="49.280000"/><inertia ixx="0.067349" ixy="0" ixz="0" iyy="515.166549" iyz="0" izz="515.181333"/></inertial><visual><geometry><box size="11.2 0.1 0.08"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="11.2 0.1 0.08"/></geometry></collision></link>
+  <joint name="frame_north_joint" type="fixed"><parent link="base_link"/><child link="frame_north"/><origin xyz="0 5.55 0.04"/></joint>
+  <link name="frame_west"><inertial><mass value="49.280000"/><inertia ixx="515.166549" ixy="0" ixz="0" iyy="0.067349" iyz="0" izz="515.181333"/></inertial><visual><geometry><box size="0.1 11.2 0.08"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="0.1 11.2 0.08"/></geometry></collision></link>
+  <joint name="frame_west_joint" type="fixed"><parent link="base_link"/><child link="frame_west"/><origin xyz="-5.55 0 0.04"/></joint>
+  <link name="frame_east"><inertial><mass value="49.280000"/><inertia ixx="515.166549" ixy="0" ixz="0" iyy="0.067349" iyz="0" izz="515.181333"/></inertial><visual><geometry><box size="0.1 11.2 0.08"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="0.1 11.2 0.08"/></geometry></collision></link>
+  <joint name="frame_east_joint" type="fixed"><parent link="base_link"/><child link="frame_east"/><origin xyz="5.55 0 0.04"/></joint>
+
+  <!-- ==================== 中央分隔栏 ==================== -->
+  <link name="divider_south"><inertial><mass value="6.600000"/><inertia ixx="3.445420" ixy="0" ixz="0" iyy="0.008800" iyz="0" izz="3.438380"/></inertial><visual><geometry><box size="0.04 2.5 0.12"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="0.04 2.5 0.12"/></geometry></collision></link>
+  <joint name="divider_south_joint" type="fixed"><parent link="base_link"/><child link="divider_south"/><origin xyz="0 -4.25 0.06"/></joint>
+  <link name="divider_north"><inertial><mass value="6.600000"/><inertia ixx="3.445420" ixy="0" ixz="0" iyy="0.008800" iyz="0" izz="3.438380"/></inertial><visual><geometry><box size="0.04 2.5 0.12"/></geometry><material name="柱身棕"/></visual><collision><geometry><box size="0.04 2.5 0.12"/></geometry></collision></link>
+  <joint name="divider_north_joint" type="fixed"><parent link="base_link"/><child link="divider_north"/><origin xyz="0 4.25 0.06"/></joint>
+
+  <!-- ==================== 启动区/地面重试区（700×700） ==================== -->
+  <link name="start_red1"><inertial><mass value="1.617000"/><inertia ixx="0.066032" ixy="0" ixz="0" iyy="0.066032" iyz="0" izz="0.132055"/></inertial><visual><geometry><box size="0.7 0.7 0.006"/></geometry><material name="启动重试红"/></visual></link>
+  <joint name="start_red1_joint" type="fixed"><parent link="base_link"/><child link="start_red1"/><origin xyz="-4.35 -5.15 0.011"/></joint>
+  <link name="start_red2"><inertial><mass value="1.617000"/><inertia ixx="0.066032" ixy="0" ixz="0" iyy="0.066032" iyz="0" izz="0.132055"/></inertial><visual><geometry><box size="0.7 0.7 0.006"/></geometry><material name="启动重试红"/></visual></link>
+  <joint name="start_red2_joint" type="fixed"><parent link="base_link"/><child link="start_red2"/><origin xyz="-5.15 -5.15 0.011"/></joint>
+  <link name="start_blue1"><inertial><mass value="1.617000"/><inertia ixx="0.066032" ixy="0" ixz="0" iyy="0.066032" iyz="0" izz="0.132055"/></inertial><visual><geometry><box size="0.7 0.7 0.006"/></geometry><material name="启动重试蓝"/></visual></link>
+  <joint name="start_blue1_joint" type="fixed"><parent link="base_link"/><child link="start_blue1"/><origin xyz="4.35 -5.15 0.011"/></joint>
+  <link name="start_blue2"><inertial><mass value="1.617000"/><inertia ixx="0.066032" ixy="0" ixz="0" iyy="0.066032" iyz="0" izz="0.132055"/></inertial><visual><geometry><box size="0.7 0.7 0.006"/></geometry><material name="启动重试蓝"/></visual></link>
+  <joint name="start_blue2_joint" type="fixed"><parent link="base_link"/><child link="start_blue2"/><origin xyz="5.15 -5.15 0.011"/></joint>
+
+  <!-- ==================== 储存区（1000×2000） ==================== -->
+  <link name="storage_red"><inertial><mass value="6.600000"/><inertia ixx="0.550020" ixy="0" ixz="0" iyy="2.200020" iyz="0" izz="2.750000"/></inertial><visual><geometry><box size="2.0 1.0 0.006"/></geometry><material name="启动重试红"/></visual></link>
+  <joint name="storage_red_joint" type="fixed"><parent link="base_link"/><child link="storage_red"/><origin xyz="-4.5 5.0 0.012"/></joint>
+  <link name="storage_blue"><inertial><mass value="6.600000"/><inertia ixx="0.550020" ixy="0" ixz="0" iyy="2.200020" iyz="0" izz="2.750000"/></inertial><visual><geometry><box size="2.0 1.0 0.006"/></geometry><material name="启动重试蓝"/></visual></link>
+  <joint name="storage_blue_joint" type="fixed"><parent link="base_link"/><child link="storage_blue"/><origin xyz="4.5 5.0 0.012"/></joint>
+
+<!-- ==================== 秘宝柱（地面层，共享区正北中心） ==================== -->
+  
+  <!-- 1. 秘宝底座（1000x1000mm，X轴居中，Y轴紧贴 L1 平台北侧边缘） -->
+  <link name="mustika_pad"><inertial><mass value="3.300000"/><inertia ixx="0.275010" ixy="0" ixz="0" iyy="0.275010" iyz="0" izz="0.550000"/></inertial><visual><geometry><box size="1.0 1.0 0.006"/></geometry><material name="共享区米黄"/></visual></link>
+  <joint name="mustika_pad_joint" type="fixed"><parent link="base_link"/><child link="mustika_pad"/><origin xyz="0 4.0 0.011"/></joint>
+  
+  <!-- 2. 秘宝柱身 -->
+  <link name="mustika_pillar"><inertial><mass value="15.745270"/><inertia ixx="0.399766" ixy="0" ixz="0" iyy="0.399766" iyz="0" izz="0.143479"/></inertial><visual><geometry><cylinder radius="0.135" length="0.5"/></geometry><material name="柱身棕"/></visual><collision><geometry><cylinder radius="0.135" length="0.5"/></geometry></collision></link>
+  <joint name="mustika_pillar_joint" type="fixed"><parent link="base_link"/><child link="mustika_pillar"/><origin xyz="0 4.0 0.25"/></joint>
+  
+  <!-- 3. 顶端秘宝金球 -->
+  <link name="mustika_ball"><inertial><mass value="2.303835"/><inertia ixx="0.009215" ixy="0" ixz="0" iyy="0.009215" iyz="0" izz="0.009215"/></inertial><visual><geometry><sphere radius="0.1"/></geometry><material name="秘宝金"/></visual><collision><geometry><sphere radius="0.1"/></geometry></collision></link>
+  <joint name="mustika_ball_joint" type="fixed"><parent link="base_link"/><child link="mustika_ball"/><origin xyz="0 4.0 0.6"/></joint>
+
+  <!-- ==================== 地面共享区 天空块 5x5 棋盘格 (1200x1200mm) ==================== -->
+  <link name="sky_pad"><inertial><mass value="4.752000"/><inertia ixx="0.570254" ixy="0" ixz="0" iyy="0.570254" iyz="0" izz="1.140480"/></inertial><visual><geometry><box size="1.2 1.2 0.006"/></geometry><material name="共享区米黄"/></visual></link>
+  <joint name="sky_pad_joint" type="fixed"><parent link="base_link"/><child link="sky_pad"/><origin xyz="0 -4.2 0.011"/></joint>
+
+  <!-- 12个 200x200x200mm 天空块实体 -->
+  <!-- <link name="sky_00"><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_00_joint" type="fixed"><parent link="base_link"/><child link="sky_00"/><origin xyz="2.72 -3.68 0.11"/></joint>
+  <link name="sky_02"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_02_joint" type="fixed"><parent link="base_link"/><child link="sky_02"/><origin xyz="2.72 -3.20 0.11"/></joint>
+  <link name="sky_04"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_04_joint" type="fixed"><parent link="base_link"/><child link="sky_04"/><origin xyz="2.72 -2.72 0.11"/></joint>
+
+  <link name="sky_11"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_11_joint" type="fixed"><parent link="base_link"/><child link="sky_11"/><origin xyz="2.96 -3.44 0.11"/></joint>
+  <link name="sky_13"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_13_joint" type="fixed"><parent link="base_link"/><child link="sky_13"/><origin xyz="2.96 -2.96 0.11"/></joint>
+
+  <link name="sky_20"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_20_joint" type="fixed"><parent link="base_link"/><child link="sky_20"/><origin xyz="3.20 -3.68 0.11"/></joint>
+  <link name="sky_24"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_24_joint" type="fixed"><parent link="base_link"/><child link="sky_24"/><origin xyz="3.20 -2.72 0.11"/></joint>
+
+  <link name="sky_31"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_31_joint" type="fixed"><parent link="base_link"/><child link="sky_31"/><origin xyz="3.44 -3.44 0.11"/></joint>
+  <link name="sky_33"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_33_joint" type="fixed"><parent link="base_link"/><child link="sky_33"/><origin xyz="3.44 -2.96 0.11"/></joint>
+
+  <link name="sky_40"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试红"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_40_joint" type="fixed"><parent link="base_link"/><child link="sky_40"/><origin xyz="3.68 -3.68 0.11"/></joint>
+  <link name="sky_42"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_42_joint" type="fixed"><parent link="base_link"/><child link="sky_42"/><origin xyz="3.68 -3.20 0.11"/></joint>
+  <link name="sky_44"><inertial><mass value="4.400000"/><inertia ixx="0.029333" ixy="0" ixz="0" iyy="0.029333" iyz="0" izz="0.029333"/></inertial><visual><geometry><box size="0.2 0.2 0.2"/></geometry><material name="启动重试蓝"/></visual><collision><geometry><box size="0.2 0.2 0.2"/></geometry></collision></link>
+  <joint name="sky_44_joint" type="fixed"><parent link="base_link"/><child link="sky_44"/><origin xyz="3.68 -2.72 0.11"/></joint> -->
+
+  <!-- ==================== L1 一级平台（6000×6000，高600mm） ==================== -->
+  <link name="l1_body"><inertial><mass value="11880.000000"/><inertia ixx="35996.400000" ixy="0" ixz="0" iyy="35996.400000" iyz="0" izz="71280.000000"/></inertial><visual><geometry><box size="6.0 6.0 0.6"/></geometry><material name="护栏灰"/></visual><collision><geometry><box size="6.0 6.0 0.6"/></geometry></collision></link>
+  <joint name="l1_body_joint" type="fixed"><parent link="base_link"/><child link="l1_body"/><origin xyz="0 0 0.3"/></joint>
+  <link name="l1_top_red"><inertial><mass value="59.400000"/><inertia ixx="178.200178" ixy="0" ixz="0" iyy="44.550178" iyz="0" izz="222.750000"/></inertial><visual><geometry><box size="3.0 6.0 0.006"/></geometry><material name="红方台面橙粉"/></visual></link>
+  <joint name="l1_top_red_joint" type="fixed"><parent link="base_link"/><child link="l1_top_red"/><origin xyz="-1.5 0 0.603"/></joint>
+  <link name="l1_top_blue"><inertial><mass value="59.400000"/><inertia ixx="178.200178" ixy="0" ixz="0" iyy="44.550178" iyz="0" izz="222.750000"/></inertial><visual><geometry><box size="3.0 6.0 0.006"/></geometry><material name="蓝方台面青蓝"/></visual></link>
+  <joint name="l1_top_blue_joint" type="fixed"><parent link="base_link"/><child link="l1_top_blue"/><origin xyz="1.5 0 0.603"/></joint>
+
+<!-- ==================== 红方 L 型攀爬通道（最终版：纯实体斜坡包裹） ==================== -->
+  
+  <!-- 1. 红方交接区（中心点 Y=-1.3, 高0.6m） -->
+  <link name="transfer_red_base"><inertial><mass value="330.000000"/><inertia ixx="37.400000" ixy="0" ixz="0" iyy="37.400000" iyz="0" izz="55.000000"/></inertial><visual><geometry><box size="1.0 1.0 0.6"/></geometry><material name="红方斜坡"/></visual><collision><geometry><box size="1.0 1.0 0.6"/></geometry></collision></link>
+  <joint name="transfer_red_base_joint" type="fixed"><parent link="base_link"/><child link="transfer_red_base"/><origin xyz="-3.5 -1.3 0.30"/></joint>
+  
+  <link name="transfer_red"><inertial><mass value="4.400000"/><inertia ixx="0.366690" ixy="0" ixz="0" iyy="0.366690" iyz="0" izz="0.733333"/></inertial><visual><geometry><box size="1.0 1.0 0.008"/></geometry><material name="红方交接橙"/></visual></link>
+  <joint name="transfer_red_joint" type="fixed"><parent link="base_link"/><child link="transfer_red"/><origin xyz="-3.5 -1.3 0.604"/></joint>
+
+  <!-- 2. 红方台阶（包含3级） -->
+  <link name="red_gstair3"><inertial><mass value="74.250000"/><inertia ixx="1.809844" ixy="0" ixz="0" iyy="7.440469" iyz="0" izz="6.744375"/></inertial><visual><geometry><box size="1.0 0.3 0.45"/></geometry><material name="红方台面橙粉"/></visual><collision><geometry><box size="1.0 0.3 0.45"/></geometry></collision></link>
+  <joint name="red_gstair3_joint" type="fixed"><parent link="base_link"/><child link="red_gstair3"/><origin xyz="-3.5 -1.95 0.225"/></joint>
+  
+  <link name="red_gstair2"><inertial><mass value="49.500000"/><inertia ixx="0.742500" ixy="0" ixz="0" iyy="4.496250" iyz="0" izz="4.496250"/></inertial><visual><geometry><box size="1.0 0.3 0.30"/></geometry><material name="红方台面橙粉"/></visual><collision><geometry><box size="1.0 0.3 0.30"/></geometry></collision></link>
+  <joint name="red_gstair2_joint" type="fixed"><parent link="base_link"/><child link="red_gstair2"/><origin xyz="-3.5 -2.25 0.15"/></joint>
+  
+  <link name="red_gstair1"><inertial><mass value="24.750000"/><inertia ixx="0.232031" ixy="0" ixz="0" iyy="2.108906" iyz="0" izz="2.248125"/></inertial><visual><geometry><box size="1.0 0.3 0.15"/></geometry><material name="红方台面橙粉"/></visual><collision><geometry><box size="1.0 0.3 0.15"/></geometry></collision></link>
+  <joint name="red_gstair1_joint" type="fixed"><parent link="base_link"/><child link="red_gstair1"/><origin xyz="-3.5 -2.55 0.075"/></joint>
+
+  <!-- 3. 红方斜坡（采用“厚截面沉地”法，制造完美实体三角形视觉） -->
+  <!-- 尺寸 Z 从 0.03 加厚到 0.6。中心坐标依据三角函数同步位移，顶面保持原位不变 -->
+  <link name="red_ramp_surface"><inertial><mass value="1171.830000"/><inertia ixx="1266.513962" ixy="0" ixz="0" iyy="132.807400" iyz="0" izz="1329.011562"/></inertial><visual><geometry><box size="1.0 3.551 0.6"/></geometry><material name="红方斜坡"/></visual><collision><geometry><box size="1.0 3.551 0.6"/></geometry></collision></link>
+  <joint name="red_ramp_surface_joint" type="fixed"><parent link="base_link"/><child link="red_ramp_surface"/><origin xyz="-3.5 0.902 0.019" rpy="-0.170 0 0"/></joint>
+  
+
+
+  <!-- ==================== 蓝方 L 型攀爬通道（最终版：与红方同向平行布局） ==================== -->
+  
+  <!-- 1. 蓝方交接区 -->
+  <link name="transfer_blue_base"><inertial><mass value="330.000000"/><inertia ixx="37.400000" ixy="0" ixz="0" iyy="37.400000" iyz="0" izz="55.000000"/></inertial><visual><geometry><box size="1.0 1.0 0.6"/></geometry><material name="蓝方斜坡"/></visual><collision><geometry><box size="1.0 1.0 0.6"/></geometry></collision></link>
+  <joint name="transfer_blue_base_joint" type="fixed"><parent link="base_link"/><child link="transfer_blue_base"/><origin xyz="3.5 -1.3 0.30"/></joint>
+  
+  <link name="transfer_blue"><inertial><mass value="4.400000"/><inertia ixx="0.366690" ixy="0" ixz="0" iyy="0.366690" iyz="0" izz="0.733333"/></inertial><visual><geometry><box size="1.0 1.0 0.008"/></geometry><material name="蓝方交接蓝"/></visual></link>
+  <joint name="transfer_blue_joint" type="fixed"><parent link="base_link"/><child link="transfer_blue"/><origin xyz="3.5 -1.3 0.604"/></joint>
+
+  <!-- 2. 蓝方台阶 -->
+  <link name="blue_gstair3"><inertial><mass value="74.250000"/><inertia ixx="1.809844" ixy="0" ixz="0" iyy="7.440469" iyz="0" izz="6.744375"/></inertial><visual><geometry><box size="1.0 0.3 0.45"/></geometry><material name="蓝方台面青蓝"/></visual><collision><geometry><box size="1.0 0.3 0.45"/></geometry></collision></link>
+  <joint name="blue_gstair3_joint" type="fixed"><parent link="base_link"/><child link="blue_gstair3"/><origin xyz="3.5 -1.95 0.225"/></joint>
+  
+  <link name="blue_gstair2"><inertial><mass value="49.500000"/><inertia ixx="0.742500" ixy="0" ixz="0" iyy="4.496250" iyz="0" izz="4.496250"/></inertial><visual><geometry><box size="1.0 0.3 0.30"/></geometry><material name="蓝方台面青蓝"/></visual><collision><geometry><box size="1.0 0.3 0.30"/></geometry></collision></link>
+  <joint name="blue_gstair2_joint" type="fixed"><parent link="base_link"/><child link="blue_gstair2"/><origin xyz="3.5 -2.25 0.15"/></joint>
+  
+  <link name="blue_gstair1"><inertial><mass value="24.750000"/><inertia ixx="0.232031" ixy="0" ixz="0" iyy="2.108906" iyz="0" izz="2.248125"/></inertial><visual><geometry><box size="1.0 0.3 0.15"/></geometry><material name="蓝方台面青蓝"/></visual><collision><geometry><box size="1.0 0.3 0.15"/></geometry></collision></link>
+  <joint name="blue_gstair1_joint" type="fixed"><parent link="base_link"/><child link="blue_gstair1"/><origin xyz="3.5 -2.55 0.075"/></joint>
+
+  <!-- 3. 蓝方斜坡（采用“厚截面沉地”法，制造完美实体三角形视觉） -->
+  <link name="blue_ramp_surface"><inertial><mass value="1171.830000"/><inertia ixx="1266.513962" ixy="0" ixz="0" iyy="132.807400" iyz="0" izz="1329.011562"/></inertial><visual><geometry><box size="1.0 3.551 0.6"/></geometry><material name="蓝方斜坡"/></visual><collision><geometry><box size="1.0 3.551 0.6"/></geometry></collision></link>
+  <joint name="blue_ramp_surface_joint" type="fixed"><parent link="base_link"/><child link="blue_ramp_surface"/><origin xyz="3.5 0.902 0.019" rpy="-0.170 0 0"/></joint>
+
+
+  <!-- ==================== L1 重试区（700×700） ==================== -->
+  <link name="l1_retry_red"><inertial><mass value="1.886500"/><inertia ixx="0.077040" ixy="0" ixz="0" iyy="0.077040" iyz="0" izz="0.154064"/></inertial><visual><geometry><box size="0.7 0.7 0.007"/></geometry><material name="启动重试红"/></visual></link>
+  <joint name="l1_retry_red_joint" type="fixed"><parent link="base_link"/><child link="l1_retry_red"/><origin xyz="-2.0 2.65 0.608"/></joint>
+  <link name="l1_retry_blue"><inertial><mass value="1.886500"/><inertia ixx="0.077040" ixy="0" ixz="0" iyy="0.077040" iyz="0" izz="0.154064"/></inertial><visual><geometry><box size="0.7 0.7 0.007"/></geometry><material name="启动重试蓝"/></visual></link>
+  <joint name="l1_retry_blue_joint" type="fixed"><parent link="base_link"/><child link="l1_retry_blue"/><origin xyz="2.0 2.65 0.608"/></joint>
+
+  <!-- ==================== L1 建塔位（500×500绿） ==================== -->
+  <link name="l1_spot_r1"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l1_spot_r1_joint" type="fixed"><parent link="base_link"/><child link="l1_spot_r1"/><origin xyz="-2.75 2.75 0.608"/></joint>
+  <link name="l1_spot_r2"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l1_spot_r2_joint" type="fixed"><parent link="base_link"/><child link="l1_spot_r2"/><origin xyz="-2.75 -2.75 0.608"/></joint>
+  <link name="l1_spot_b1"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l1_spot_b1_joint" type="fixed"><parent link="base_link"/><child link="l1_spot_b1"/><origin xyz="2.75 2.75 0.608"/></joint>
+  <link name="l1_spot_b2"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l1_spot_b2_joint" type="fixed"><parent link="base_link"/><child link="l1_spot_b2"/><origin xyz="2.75 -2.75 0.608"/></joint>
+
+<!-- ==================== L1 共享区及塔位（红蓝分界线中心，贴合L1外边缘） ==================== -->
+  
+  <!-- 北侧 L1 共享区底色 (1000x750 米黄，紧贴北边缘) -->
+  <link name="l1_share_pad_north"><inertial><mass value="2.887500"/><inertia ixx="0.135363" ixy="0" ixz="0" iyy="0.240637" iyz="0" izz="0.375977"/></inertial><visual><geometry><box size="1.0 0.75 0.007"/></geometry><material name="共享区米黄"/></visual><collision><geometry><box size="1.0 0.75 0.007"/></geometry></collision></link>
+  <joint name="l1_share_pad_north_joint" type="fixed"><parent link="base_link"/><child link="l1_share_pad_north"/><origin xyz="0 2.625 0.605"/></joint>
+  
+  <!-- 北侧 L1 共享区建塔位 (500x500 绿，居中于米黄底色) -->
+  <link name="l1_share_spot_north"><inertial><mass value="1.100000"/><inertia ixx="0.022923" ixy="0" ixz="0" iyy="0.022923" iyz="0" izz="0.045833"/></inertial><visual><geometry><box size="0.5 0.5 0.008"/></geometry><material name="建塔位绿"/></visual><collision><geometry><box size="0.5 0.5 0.008"/></geometry></collision></link>
+  <joint name="l1_share_spot_north_joint" type="fixed"><parent link="base_link"/><child link="l1_share_spot_north"/><origin xyz="0 2.625 0.608"/></joint>
+
+  <!-- 南侧 L1 共享区底色 (1000x750 米黄，紧贴南边缘) -->
+  <link name="l1_share_pad_south"><inertial><mass value="2.887500"/><inertia ixx="0.135363" ixy="0" ixz="0" iyy="0.240637" iyz="0" izz="0.375977"/></inertial><visual><geometry><box size="1.0 0.75 0.007"/></geometry><material name="共享区米黄"/></visual><collision><geometry><box size="1.0 0.75 0.007"/></geometry></collision></link>
+  <joint name="l1_share_pad_south_joint" type="fixed"><parent link="base_link"/><child link="l1_share_pad_south"/><origin xyz="0 -2.625 0.605"/></joint>
+  
+  <!-- 南侧 L1 共享区建塔位 (500x500 绿，居中于米黄底色) -->
+  <link name="l1_share_spot_south"><inertial><mass value="1.100000"/><inertia ixx="0.022923" ixy="0" ixz="0" iyy="0.022923" iyz="0" izz="0.045833"/></inertial><visual><geometry><box size="0.5 0.5 0.008"/></geometry><material name="建塔位绿"/></visual><collision><geometry><box size="0.5 0.5 0.008"/></geometry></collision></link>
+  <joint name="l1_share_spot_south_joint" type="fixed"><parent link="base_link"/><child link="l1_share_spot_south"/><origin xyz="0 -2.625 0.608"/></joint>
+
+<!-- ==================== 阶梯 L1→L2（单级台阶，高度150mm） ==================== -->
+  
+  <!-- 红方 L1→L2 台阶 -->
+  <link name="red_l2stair"><inertial><mass value="24.750000"/><inertia ixx="2.108906" ixy="0" ixz="0" iyy="0.232031" iyz="0" izz="2.248125"/></inertial><visual><geometry><box size="0.3 1.0 0.15"/></geometry><material name="红方台面橙粉"/></visual><collision><geometry><box size="0.3 1.0 0.15"/></geometry></collision></link>
+  <joint name="red_l2stair_joint" type="fixed"><parent link="base_link"/><child link="red_l2stair"/><origin xyz="-1.65 0 0.675"/></joint>
+  
+  <!-- 蓝方 L1→L2 台阶 -->
+  <link name="blue_l2stair"><inertial><mass value="24.750000"/><inertia ixx="2.108906" ixy="0" ixz="0" iyy="0.232031" iyz="0" izz="2.248125"/></inertial><visual><geometry><box size="0.3 1.0 0.15"/></geometry><material name="蓝方台面青蓝"/></visual><collision><geometry><box size="0.3 1.0 0.15"/></geometry></collision></link>
+  <joint name="blue_l2stair_joint" type="fixed"><parent link="base_link"/><child link="blue_l2stair"/><origin xyz="1.65 0 0.675"/></joint>
+
+  <!-- ==================== L2 二级平台（3000×3000，高900mm） ==================== -->
+  <link name="l2_body"><inertial><mass value="1485.000000"/><inertia ixx="1124.887500" ixy="0" ixz="0" iyy="1124.887500" iyz="0" izz="2227.500000"/></inertial><visual><geometry><box size="3.0 3.0 0.3"/></geometry><material name="护栏灰"/></visual><collision><geometry><box size="3.0 3.0 0.3"/></geometry></collision></link>
+  <joint name="l2_body_joint" type="fixed"><parent link="base_link"/><child link="l2_body"/><origin xyz="0 0 0.75"/></joint>
+  <link name="l2_top"><inertial><mass value="29.700000"/><inertia ixx="22.275089" ixy="0" ixz="0" iyy="22.275089" iyz="0" izz="44.550000"/></inertial><visual><geometry><box size="3.0 3.0 0.006"/></geometry><material name="护栏灰"/></visual></link>
+  <joint name="l2_top_joint" type="fixed"><parent link="base_link"/><child link="l2_top"/><origin xyz="0 0 0.903"/></joint>
+
+  <!-- ==================== L2 建塔位（500×500绿，四角） ==================== -->
+  <link name="l2_spot_1"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l2_spot_1_joint" type="fixed"><parent link="base_link"/><child link="l2_spot_1"/><origin xyz="-1.25 -1.25 0.907"/></joint>
+  <link name="l2_spot_2"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l2_spot_2_joint" type="fixed"><parent link="base_link"/><child link="l2_spot_2"/><origin xyz="1.25 1.25 0.907"/></joint>
+  <link name="l2_spot_3"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l2_spot_3_joint" type="fixed"><parent link="base_link"/><child link="l2_spot_3"/><origin xyz="-1.25 1.25 0.907"/></joint>
+  <link name="l2_spot_4"><inertial><mass value="0.962500"/><inertia ixx="0.020056" ixy="0" ixz="0" iyy="0.020056" iyz="0" izz="0.040104"/></inertial><visual><geometry><box size="0.5 0.5 0.007"/></geometry><material name="建塔位绿"/></visual></link>
+  <joint name="l2_spot_4_joint" type="fixed"><parent link="base_link"/><child link="l2_spot_4"/><origin xyz="1.25 -1.25 0.907"/></joint>
+
+  <!-- ==================== 中央柱（L2正中心） ==================== -->
+  <link name="central_pillar"><inertial><mass value="25.192431"/><inertia ixx="1.458379" ixy="0" ixz="0" iyy="1.458379" iyz="0" izz="0.229566"/></inertial><visual><geometry><cylinder radius="0.135" length="0.8"/></geometry><material name="柱身棕"/></visual><collision><geometry><cylinder radius="0.135" length="0.8"/></geometry></collision></link>
+  <joint name="central_pillar_joint" type="fixed"><parent link="base_link"/><child link="central_pillar"/><origin xyz="0 0 1.3"/></joint>
+  <link name="central_dish"><inertial><mass value="0.279916"/><inertia ixx="0.000576" ixy="0" ixz="0" iyy="0.000576" iyz="0" izz="0.001134"/></inertial><visual><geometry><cylinder radius="0.09" length="0.02"/></geometry><material name="柱身棕"/></visual><collision><geometry><cylinder radius="0.09" length="0.02"/></geometry></collision></link>
+  <joint name="central_dish_joint" type="fixed"><parent link="base_link"/><child link="central_dish"/><origin xyz="0 0 1.71"/></joint>
+  <!-- <link name="central_ball"><visual><geometry><sphere radius="0.1"/></geometry><material name="秘宝金"/></visual><collision><geometry><sphere radius="0.1"/></geometry></collision></link> -->
+  <!-- <joint name="central_ball_joint" type="fixed"><parent link="base_link"/><child link="central_ball"/><origin xyz="0 0 1.81"/></joint> -->
+
+
+
+  <!-- ==================== Gazebo 标签 ==================== -->
+  <gazebo reference="base_link">
+    <static>true</static>
+  </gazebo>
+
+
+
+
+  <!-- ==================== Gazebo 物理标签 ==================== -->
+  <!-- base_link 静态固定：防止整个场地因无支撑而坠落 -->
+  <gazebo reference="base_link">
+    <static>true</static>
+  </gazebo>
+  <!-- 胶合板面摩擦 mu1/mu2=0.9 -->
+  <gazebo reference="blue_ground">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="blue_gstair1">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="blue_gstair2">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="blue_gstair3">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="blue_l2stair">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="blue_ramp_surface">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="central_dish">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="central_pillar">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="divider_north">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="divider_south">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="frame_east">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="frame_north">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="frame_south">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="frame_west">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l1_body">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l1_share_pad_north">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l1_share_pad_south">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l1_share_spot_north">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l1_share_spot_south">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="l2_body">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="mustika_ball">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="mustika_pillar">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_ground">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_gstair1">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_gstair2">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_gstair3">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_l2stair">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="red_ramp_surface">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_02">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_04">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_11">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_13">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_20">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_24">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_31">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_33">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_40">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_42">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="sky_44">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="transfer_blue_base">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+  <gazebo reference="transfer_red_base">
+    <mu1>0.9</mu1>
+    <mu2>0.9</mu2>
+  </gazebo>
+
+</robot>

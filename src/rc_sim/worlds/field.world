@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="rc_field_world">
+    <!-- 环境光照与默认地平面（场地 URDF 自带地面，此地面仅作保险） -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- ODE 物理参数：时间步长 1ms，便于爬坡/碰撞解算 -->
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+  </world>
+</sdf>

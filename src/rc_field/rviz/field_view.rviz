@@ -1,0 +1,563 @@
+Panels:
+  - Class: rviz_common/Displays
+    Help Height: 70
+    Name: Displays
+    Property Tree Widget:
+      Expanded: ~
+      Splitter Ratio: 0.5
+    Tree Height: 304
+  - Class: rviz_common/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz_common/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 0.5
+      Class: rviz_default_plugins/Grid
+      Color: 150; 150; 150
+      Enabled: false
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 22
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 22
+      Reference Frame: base_link
+      Value: false
+    - Alpha: 1
+      Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
+      Description Topic:
+        Depth: 1
+        Durability Policy: Transient Local
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /robot_description
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        blue_ground:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_gstair1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_gstair2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_gstair3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_gstair4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_l2stair1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_l2stair2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_ramp_solid:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        blue_ramp_surface:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        central_ball:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        central_dish:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        central_pillar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        divider_north:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        divider_south:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        frame_east:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        frame_north:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        frame_south:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        frame_west:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_body:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_rail_n_e:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_rail_n_w:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_rail_s_e:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_rail_s_w:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_retry_blue:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_retry_red:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_spot_b1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_spot_b2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_spot_r1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_spot_r2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_top_blue:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_top_red:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l1_top_share:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_body:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_spot_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_spot_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_spot_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_spot_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        l2_top:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        mustika_ball:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        mustika_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        mustika_pillar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_ground:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_gstair1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_gstair2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_gstair3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_gstair4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_l2stair1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_l2stair2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_ramp_solid:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        red_ramp_surface:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_00:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_02:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_04:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_13:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_20:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_24:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_31:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_33:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_40:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_42:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_44:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sky_pad:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        start_blue1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        start_blue2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        start_red1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        start_red2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        storage_blue:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        storage_red:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        transfer_blue:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        transfer_blue_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        transfer_red:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        transfer_red_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Mass Properties:
+        Inertia: false
+        Mass: false
+      Name: Field Model
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz_default_plugins/TF
+      Enabled: false
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+      Marker Scale: 0.5
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: false
+      Tree:
+        {}
+      Update Interval: 0
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 30; 45; 30
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz_default_plugins/Interact
+      Hide Inactive Objects: true
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+    - Class: rviz_default_plugins/FocusCamera
+    - Class: rviz_default_plugins/Measure
+      Line color: 128; 128; 0
+  Transformation:
+    Current:
+      Class: rviz_default_plugins/TF
+  Value: true
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 16.727338790893555
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: -0.3474960923194885
+        Y: -0.6926590800285339
+        Z: 0.3072948753833771
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 1.3799998760223389
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz_default_plugins)
+      Yaw: 4.710000991821289
+    Saved:
+      - Class: rviz_default_plugins/Orbit
+        Distance: 12
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0.6000000238418579
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Top-down View
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 1.2999999523162842
+        Target Frame: <Fixed Frame>
+        Value: Orbit (rviz_default_plugins)
+        Yaw: 3.140000104904175
+      - Class: rviz_default_plugins/Orbit
+        Distance: 14
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0.800000011920929
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Perspective
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.8999999761581421
+        Target Frame: <Fixed Frame>
+        Value: Orbit (rviz_default_plugins)
+        Yaw: 2.5
+      - Class: rviz_default_plugins/Orbit
+        Distance: 10
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0.6000000238418579
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Front View
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0
+        Target Frame: <Fixed Frame>
+        Value: Orbit (rviz_default_plugins)
+        Yaw: 3.140000104904175
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd0000000100000000000002fb0000039efc0200000003fb000000100044006900730070006c006100790073010000003d000001b3000000c900fffffffb0000000a0056006900650077007301000001f600000164000000a400fffffffb0000000800540069006d006501000003600000007b0000003900ffffff000004390000039e00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Time:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1850
+  X: 70
+  Y: 27
